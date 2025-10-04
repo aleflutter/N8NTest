@@ -1,0 +1,34 @@
+name: Deploy Pipeline
+
+# Configura este workflow para que se dispare manualmente
+# a través de la API de GitHub (Webhook)
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: 'Commit SHA from n8n'
+        required: true
+        type: string
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.commit_sha }} # Usa el SHA enviado por n8n
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build # Reemplaza con tu comando de construcción
+
+      - name: Deploy Application 🚀
+        # Esta es la parte del CI/CD. Podrías usar SSH, Docker o cualquier action de despliegue
+        run: echo "Deployment complete for commit: ${{ github.event.inputs.commit_sha }}"
