@@ -31,5 +31,5 @@ jobs:
           npm run build # Reemplaza con tu comando de construcción
 
       - name: Deploy Application 🚀
-        # Esta es la parte del CI/CD. Podrías usar SSH, Docker o cualquier action de despliegue
-        run: echo "Deployment complete for commit: ${{ github.event.inputs.commit_sha }}"
+        # LÍNEA 35 CORREGIDA: Usa comillas simples para envolver toda la línea.
+        run: 'echo "Deployment complete for commit: ${{ github.event.inputs.commit_sha }}"'
